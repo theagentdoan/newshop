@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Category from "./category";
 import FeaturedProduct from "./featuredProduct";
+import CatFeaturedProduct from "./CatfeaturedProduct";
 
 class Shop extends Component {
   render() {
@@ -94,7 +95,7 @@ class Shop extends Component {
             </div>
 
             <div className="col-sm-9 padding-right">
-              <FeaturedProduct
+              <CatFeaturedProduct
                 display={{ col: 4, overlay: true, choose: true }}
               />
               {/* <!--features_items--> */}

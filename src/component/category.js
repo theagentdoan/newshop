@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import {Link} from "react-router-dom";
 
 class Category extends Component {
   constructor(props) {
@@ -19,7 +20,7 @@ class Category extends Component {
             <div key={category.toString()} className="panel panel-default">
               <div className="panel-heading">
                 <h4 className="panel-title">
-                  <a href="#">{category}</a>
+                  <Link to={"/shop/"+category}>{category}</Link>
                 </h4>
               </div>
             </div>

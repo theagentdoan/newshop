@@ -1,34 +1,37 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import Category from "./category";
 import Product from "./product";
-import {withRouter} from "react-router-dom";
+import NoMatch from "./NoMatch";
 
-class Detail extends Component {
-  constructor(props){
-      super(props);
-      console.log(props);
-      this.state = {product:{},recommendedProduct:[]}
-  }
-
-  componentDidMount()
+function Detail (props) {
+   // {product:{},recommendedProduct:[]}
+     const[product, setProduct] = useState({});
+     const [recommendedProduct, setRecommendedProduct] = useState([]);
+     const {id} = useParams();
+     console.log(id);
+     
+  
+  useEffect(() =>
   {
-    fetch('https://fakestoreapi.com/products/'+this.props.match.params.id)
+    fetch('https://fakestoreapi.com/products/'+id)
     .then(res=>res.json())
     .then(data=> {
-        this.setState({product:data});
+        setProduct(data);
         //Lấy loại của sản phẩm
         let category = data.category;
         //Lấy tất cả các sản phẩm cùng loại
         fetch('https://fakestoreapi.com/products/category/'+category)
         .then(res => res.json())
-        .then(data => this.setState({recommendedProduct:data}));
+        .then(data => setRecommendedProduct(data.filter((p) => p.id !=id)));
     }
     )
-    .catch(err => console.log(err));
-  }
-  render() {
-    console.log('render');
+    .catch((err) => console.log(err));
+  }, [id])
+  console.log(useParams);
     return (
+      
+      product == null || isNaN(id) ? <NoMatch/>:
       <section>
         <div className="container">
           <div className="row">
@@ -122,7 +125,7 @@ class Detail extends Component {
                 {/* <!--product-details--> */}
                 <div className="col-sm-5">
                   <div className="view-product">
-                    <img  src={this.state.product.image} alt={this.state.product.title} />
+                    <img  src={product.image} alt={product.title} />
                     <h3>ZOOM</h3>
                   </div>
                   <div
@@ -135,8 +138,8 @@ class Detail extends Component {
                       <div className="item active">
                         <a href="">
                           <img
-                            src={this.state.product.image}
-                            alt={this.state.product.title}
+                            src={product.image}
+                            alt={product.title}
                           />
                         </a>
                         <a href="">
@@ -219,12 +222,12 @@ class Detail extends Component {
                       className="newarrival"
                       alt=""
                     />
-                    <h2>{this.state.product.title}</h2>
+                    <h2>{product.title}</h2>
                     <p>Web ID: 1089772</p>
                     <img src="images/product-details/rating.png" alt="" />
                     <br/>
                     <span>
-                      <span>US ${this.state.product.price}</span>
+                      <span>US ${product.price}</span>
                       <div class="clearfix"></div>
                       <label>Quantity:</label>
                       <input type="text" value="3" />
@@ -278,10 +281,10 @@ class Detail extends Component {
                 </div>
                 <div className="tab-content">
                   <div className="tab-pane fade active in" id="details">
-                    {this.state.product.description}
+                    {product.description}
                   </div>
                 <div className="tab-pane fade" id="tag">
-                    {this.state.product.category}
+                    {product.category}
                 </div>
 
                   <div className="tab-pane fade" id="reviews">
@@ -348,8 +351,8 @@ class Detail extends Component {
                 >
                   <div className="carousel-inner">
                     <div className="item active">
-                        {this.state.recommendedProduct.map(product => 
-                            <Product key={product.id} product={product} option={{col:4,overlay:true,choose:false}}/>
+                        {recommendedProduct.map(product => 
+                            <Product key={product.id} product={product} option={{col:4,overlay:true,choose:true}}/>
                         )}
                     </div>
                     <div className="item">
@@ -429,6 +432,6 @@ class Detail extends Component {
       </section>
     );
   }
-}
 
-export default withRouter(Detail);
+
+export default Detail;

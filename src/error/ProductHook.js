@@ -1,8 +1,6 @@
-import React, { Component } from "react";
-
-class Product extends Component {
-  constructor(props) {
-    super(props);
+import React, { useEffect, useState } from 'react'
+function Product (props) {
+  
   }
   // componentDidMount() {
   //   fetch("https://fakestoreapi.com/products")

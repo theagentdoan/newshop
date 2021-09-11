@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Category from "./category";
-import FeaturedProduct from "./featuredProduct";
+import CatFeaturedProduct from "./CatfeaturedProduct";
+// import FeaturedProductHook from "./featuredProductHook";
 
 class Homepage extends Component {
   render() {
@@ -93,7 +94,7 @@ class Homepage extends Component {
             </div>
 
             <div className="col-sm-9 padding-right">
-              <FeaturedProduct display={{col:3,overlay:false,choose:false}}/>
+              <CatFeaturedProduct display={{col:3,overlay:false,choose:false}}/>
               {/* <!--features_items--> */}
 
               <div className="category-tab">

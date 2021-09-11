@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-
+import {Link, NavLink} from "react-router-dom";
 class Product extends Component {
   constructor(props) {
     super(props);
@@ -45,13 +45,14 @@ class Product extends Component {
             <div className="choose">
               <ul className="nav nav-pills nav-justified">
                 <li>
-                  <a href="#">
+                  {/* <a href="#">
                     <i className="fa fa-plus-square"></i>Add to wishlist
-                  </a>
+                  </a> */}
+                  <Link to={"/detail/" + this.props.product.id} ><i className="fa fa-plus-square"></i>View Details</Link>
                 </li>
                 <li>
                   <a href="#">
-                    <i className="fa fa-plus-square"></i>Add to compare
+                    <i className="fa fa-plus-square"></i>Add to wish list
                   </a>
                 </li>
               </ul>
